@@ -3,7 +3,7 @@
   <access origin="*" />
   
   <feature name="BarcodeScanner">
-    <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner"/>
+    <param name="ios-package" value="CDVBarcodeScanner"/>
   </feature>
 
   
