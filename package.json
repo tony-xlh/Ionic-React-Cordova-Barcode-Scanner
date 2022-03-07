@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@awesome-cordova-plugins/core": "^5.39.1",
+    "@awesome-cordova-plugins/dynamsoft-barcode-scanner": "^5.40.0",
     "@capacitor/android": "3.4.2",
     "@capacitor/app": "1.1.1",
     "@capacitor/core": "3.4.2",
