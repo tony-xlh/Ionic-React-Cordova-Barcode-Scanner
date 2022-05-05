@@ -3,8 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@awesome-cordova-plugins/core": "^5.39.1",
-    "@awesome-cordova-plugins/dynamsoft-barcode-scanner": "^5.40.0",
     "@capacitor/android": "3.4.2",
     "@capacitor/app": "1.1.1",
     "@capacitor/core": "3.4.2",
@@ -23,7 +21,6 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
-    "cordova-plugin-dbr": "file:../cordova-plugin-dbr",
     "ionicons": "^5.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
