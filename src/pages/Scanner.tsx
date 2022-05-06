@@ -6,12 +6,15 @@ import { RouteComponentProps } from 'react-router';
 import { createPortal } from 'react-dom';
 import { BarcodeResult, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 
+let scanned = false;
 
 const Scanner = (props:RouteComponentProps) => {
   const [isActive, setIsActive] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
   const [viewBox, setViewBox] = useState("0 0 720 1280");
+  const [runtimeSettings,setRuntimeSettings] = useState("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}")
   const [barcodeResults, setBarcodeResults] = useState([] as BarcodeResult[]);
+  
   const startScan = () => {
     setIsActive(true);
   }
@@ -26,6 +29,10 @@ const Scanner = (props:RouteComponentProps) => {
   }
 
   useEffect(() => {
+    const state = props.location.state as { continuous:boolean,QRCodeOnly:boolean };
+    if (state.QRCodeOnly == true) {
+      setRuntimeSettings("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}");
+    }
     startScan();
   }, []);
 
@@ -65,8 +72,16 @@ const Scanner = (props:RouteComponentProps) => {
   }
 
   const onFrameRead = (frameResult:FrameResult) => {
-    setViewBox("0 0 "+frameResult.frameWidth+" "+frameResult.frameHeight);
-    setBarcodeResults(frameResult.results);
+    const state = props.location.state as { continuous:boolean,QRCodeOnly:boolean };
+    if (state.continuous == false) {
+      if (frameResult.results.length>0) {
+        props.history.replace({ state: {results:frameResult.results} });
+        close();
+      }
+    }else{
+      setViewBox("0 0 "+frameResult.frameWidth+" "+frameResult.frameHeight);
+      setBarcodeResults(frameResult.results);
+    }
   }
 
   const renderToBody = () => {
@@ -75,6 +90,7 @@ const Scanner = (props:RouteComponentProps) => {
         <QRCodeScanner 
           isActive={isActive} 
           torchOn={torchOn}
+          runtimeSettings={runtimeSettings}
           onFrameRead={(frameResult) => {onFrameRead(frameResult)}}
         ></QRCodeScanner>
         {renderResults()}

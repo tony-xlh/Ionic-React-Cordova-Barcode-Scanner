@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 const QRCodeScanner = (props: { isActive: boolean;
   torchOn?:boolean;
+  runtimeSettings?:string;
   onFrameRead?: (frameResult:FrameResult) => void;
   license?:string}) => {
   useEffect(() => {
@@ -47,6 +48,12 @@ const QRCodeScanner = (props: { isActive: boolean;
       DBR.switchTorch("off");
     }
   }, [props.torchOn]);
+
+  useEffect(() => {
+    if (props.runtimeSettings) {
+      DBR.initRuntimeSettingsWithString(props.runtimeSettings);
+    }
+  }, [props.runtimeSettings]);
 
   return (
     <div></div>
