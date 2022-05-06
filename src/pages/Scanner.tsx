@@ -6,8 +6,6 @@ import { RouteComponentProps } from 'react-router';
 import { createPortal } from 'react-dom';
 import { BarcodeResult, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 
-let scanned = false;
-
 const Scanner = (props:RouteComponentProps) => {
   const [isActive, setIsActive] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
