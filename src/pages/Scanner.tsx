@@ -4,10 +4,14 @@ import QRCodeScanner from '../components/QRCodeScanner';
 import { closeOutline, ellipsisHorizontalOutline, flashlightOutline } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
 import { createPortal } from 'react-dom';
+import { BarcodeResult, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+
 
 const Scanner = (props:RouteComponentProps) => {
   const [isActive, setIsActive] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
+  const [viewBox, setViewBox] = useState("0 0 720 1280");
+  const [barcodeResults, setBarcodeResults] = useState([] as BarcodeResult[]);
   const startScan = () => {
     setIsActive(true);
   }
@@ -25,16 +29,54 @@ const Scanner = (props:RouteComponentProps) => {
     startScan();
   }, []);
 
+  const getPointsData = (lr:BarcodeResult) => {
+    let pointsData = lr.x1 + "," + lr.y1 + " ";
+    pointsData = pointsData + lr.x2+ "," + lr.y2 + " ";
+    pointsData = pointsData + lr.x3+ "," + lr.y3 + " ";
+    pointsData = pointsData + lr.x4+ "," + lr.y4;
+    return pointsData;
+  }
+
   const renderResults = () => {
     return (
-      <div></div>
+      <div className="overlay">
+        <svg
+          viewBox={viewBox}
+          className="overlay"
+          xmlns="<http://www.w3.org/2000/svg>"
+        >
+          {barcodeResults.map((tr,idx) => (
+            <polygon key={"poly-"+idx} xmlns="<http://www.w3.org/2000/svg>"
+            points={getPointsData(tr)}
+            className="barcode-polygon"
+            />
+          ))}
+          {barcodeResults.map((tr,idx) => (
+            <text key={"text-"+idx} xmlns="<http://www.w3.org/2000/svg>"
+            x={tr.x1}
+            y={tr.y1}
+            fill="red"
+            fontSize="20"
+            >{tr.barcodeText}</text>
+          ))}
+        </svg>
+      </div>
     );
+  }
+
+  const onFrameRead = (frameResult:FrameResult) => {
+    setViewBox("0 0 "+frameResult.frameWidth+" "+frameResult.frameHeight);
+    setBarcodeResults(frameResult.results);
   }
 
   const renderToBody = () => {
     return createPortal(
       <div>
-        <QRCodeScanner isActive={isActive} torchOn={torchOn}></QRCodeScanner>
+        <QRCodeScanner 
+          isActive={isActive} 
+          torchOn={torchOn}
+          onFrameRead={(frameResult) => {onFrameRead(frameResult)}}
+        ></QRCodeScanner>
         {renderResults()}
         <IonFab vertical="bottom" horizontal="start" slot="fixed">
           <IonFabButton>
