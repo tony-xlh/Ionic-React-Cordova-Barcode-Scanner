@@ -15,7 +15,7 @@ dependencies {
     implementation project(':capacitor-status-bar')
 
 }
-apply from: "../../../cordova-plugin-dbr/src/android/barcodescanner.gradle"
+apply from: "../../node_modules/cordova-plugin-dynamsoft-barcode-reader/src/android/barcodereader.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()
