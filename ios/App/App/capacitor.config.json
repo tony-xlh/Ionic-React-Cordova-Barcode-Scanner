@@ -2,5 +2,10 @@
 	"appId": "io.ionic.starter",
 	"appName": "cordova-example",
 	"webDir": "build",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"ios": {
+		"cordovaLinkerFlags": [
+			"-ObjC"
+		]
+	}
 }
