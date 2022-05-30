@@ -4,7 +4,7 @@ import QRCodeScanner from '../components/QRCodeScanner';
 import { closeOutline, ellipsisHorizontalOutline, flashlightOutline } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
 import { createPortal } from 'react-dom';
-import { BarcodeResult, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { BarcodeResult, FrameResult, EnumResolution } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 
 const Scanner = (props:RouteComponentProps) => {
   const [isActive, setIsActive] = useState(false);
@@ -12,7 +12,7 @@ const Scanner = (props:RouteComponentProps) => {
   const [viewBox, setViewBox] = useState("0 0 720 1280");
   const [runtimeSettings,setRuntimeSettings] = useState("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}")
   const [barcodeResults, setBarcodeResults] = useState([] as BarcodeResult[]);
-  
+  const [cameraResolution,setCameraResolution] = useState(EnumResolution.RESOLUTION_720P);
   const startScan = () => {
     setIsActive(true);
   }
@@ -71,6 +71,7 @@ const Scanner = (props:RouteComponentProps) => {
 
   const onFrameRead = (frameResult:FrameResult) => {
     const state = props.location.state as { continuous:boolean,QRCodeOnly:boolean };
+    console.log(frameResult);
     if (state.continuous == false) {
       if (frameResult.results.length>0) {
         props.history.replace({ state: {results:frameResult.results} });
@@ -88,6 +89,7 @@ const Scanner = (props:RouteComponentProps) => {
         <QRCodeScanner 
           isActive={isActive} 
           torchOn={torchOn}
+          resolution={cameraResolution}
           runtimeSettings={runtimeSettings}
           onFrameRead={(frameResult) => {onFrameRead(frameResult)}}
         ></QRCodeScanner>

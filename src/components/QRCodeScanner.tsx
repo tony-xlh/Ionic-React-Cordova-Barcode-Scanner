@@ -1,8 +1,9 @@
-import { BarcodeScanner as DBR, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { BarcodeScanner as DBR, FrameResult,EnumResolution,ScanOptions } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 import { useEffect } from 'react';
 
 const QRCodeScanner = (props: { isActive: boolean;
   torchOn?:boolean;
+  resolution?:EnumResolution;
   runtimeSettings?:string;
   onFrameRead?: (frameResult:FrameResult) => void;
   license?:string}) => {
@@ -25,11 +26,19 @@ const QRCodeScanner = (props: { isActive: boolean;
 
   useEffect(() => {
     if (props.isActive == true) {
-      let license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
+      let options:ScanOptions = {};
+      
       if (props.license) {
-        license = props.license;
+        options.dceLicense = props.license;
+      }else{
+        options.dceLicense = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
       }
-      DBR.startScanning(license).subscribe((result:FrameResult) => {
+
+      if (props.resolution) {
+        options.resolution = Math.floor(props.resolution);
+      }
+
+      DBR.startScanning(options).subscribe((result:FrameResult) => {
         console.log(result);
         if (props.onFrameRead) {
           props.onFrameRead(result);
