@@ -12,7 +12,7 @@ const Scanner = (props:RouteComponentProps) => {
   const [viewBox, setViewBox] = useState("0 0 720 1280");
   const [runtimeSettings,setRuntimeSettings] = useState("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}")
   const [barcodeResults, setBarcodeResults] = useState([] as BarcodeResult[]);
-  const [cameraResolution,setCameraResolution] = useState(EnumResolution.RESOLUTION_720P);
+  const [cameraResolution,setCameraResolution] = useState(EnumResolution.RESOLUTION_1080P);
   const startScan = () => {
     setIsActive(true);
   }

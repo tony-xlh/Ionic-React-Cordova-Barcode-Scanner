@@ -18,9 +18,14 @@ const QRCodeScanner = (props: { isActive: boolean;
 
     init();
 
+    const unmount = async () => {
+      //await DBR.stopScanning();
+      console.log("unmount and destroy");
+      await DBR.destroy();
+    }
+
     return () => {
-      console.log("unmount");
-      DBR.stopScanning();
+      unmount();
     }
   }, []);
 
