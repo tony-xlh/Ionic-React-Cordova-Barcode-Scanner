@@ -4,7 +4,7 @@ import QRCodeScanner from '../components/QRCodeScanner';
 import { closeOutline, ellipsisHorizontalOutline, flashlightOutline } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
 import { createPortal } from 'react-dom';
-import { BarcodeResult, FrameResult, EnumResolution } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { BarcodeResult, FrameResult, EnumResolution } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 
 const Scanner = (props:RouteComponentProps) => {
   const [isActive, setIsActive] = useState(false);

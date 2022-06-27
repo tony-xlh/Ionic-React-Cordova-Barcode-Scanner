@@ -1,4 +1,4 @@
-import { BarcodeScanner as DBR, FrameResult,EnumResolution,ScanOptions } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { BarcodeScanner as DBR, FrameResult,EnumResolution,ScanOptions } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 import { useEffect } from 'react';
 
 const QRCodeScanner = (props: { isActive: boolean;

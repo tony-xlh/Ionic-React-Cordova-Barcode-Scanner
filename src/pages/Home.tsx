@@ -2,7 +2,7 @@ import { IonButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHe
 import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import './Home.css';
-import { BarcodeResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { BarcodeResult } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 import copy from 'copy-to-clipboard';
 
 const Home = (props:RouteComponentProps) => {
