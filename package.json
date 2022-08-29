@@ -24,7 +24,7 @@
     "@types/react-router-dom": "^5.1.7",
     "awesome-cordova-plugin-dynamsoft-barcode-scanner": "^1.0.2",
     "copy-to-clipboard": "^3.3.1",
-    "cordova-plugin-dynamsoft-barcode-reader": "^1.5.4",
+    "cordova-plugin-dynamsoft-barcode-reader": "^1.5.5",
     "ionicons": "^5.5.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
