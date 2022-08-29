@@ -32,7 +32,7 @@ const QRCodeScanner = (props: { isActive: boolean;
   useEffect(() => {
     if (props.isActive == true) {
       let options:ScanOptions = {};
-      
+      options.rotate = true;
       if (props.license) {
         options.dceLicense = props.license;
       }else{
